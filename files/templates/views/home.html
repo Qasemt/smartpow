@@ -1,0 +1,224 @@
+<style>
+</style>
+
+<div class="container" ng-controller="ctrlHome" ng-init="ctrlHome_init()">
+
+
+    <div class="row ">
+
+        <div class=" jumbotron  jumbotron-Custom">
+            <div class="row ltrDir ">
+                <div class="col-sm-12 text-left">
+                    <h2>Smart Pow
+                        <span class="label label-info">{{ deviceinforecs.length }} Relay</span>
+                    </h2>
+                </div>
+                <!-- <div class="col-sm-4 ">
+                 <span> <img src="./../files/icon_home.png"/></span>
+                 </div>-->
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <!--<div class="form-group col-sm-2">-->
+        <!-- <div class="col-sm-3 col-sm-offset-2 col-xs-12">
+
+             <global-date-picker on-Change="onchangeDatePicker()" is-shamsi="true" date-time-format="YYYY/MM/DD hh:mm"
+                                 selected-js-Date="xp.SelectedDateTime"></global-date-picker>
+
+             <span style="direction: ltr">{{xp.SelectedDateTime.toLocaleString()}}</span>
+             <btn-save ng-click="btnTest()"></btn-save>
+         </div>
+    -->
+        <btn-load ng-click="refreshData()" class="width100"></btn-load>
+        <!-- <button type="submit" class="btn btn-success" ng-click="">{{'Refresh'|translate}}</button> -->
+        <btn-insert ng-click="showDialogInsertinfo()" class="width100"></btn-insert>
+
+        &nbsp;
+        <!--</div>-->
+        <hr>
+    </div>
+
+    <div class="row">
+        <p>
+
+            <div class="alert alert-danger" role="alert" ng-show="showErrorMessage">
+                <small>{{ErrorMessage}}</small>
+            </div>
+        </p>
+    </div>
+
+
+    <div class="row hidden-xs" style="direction: rtl">
+        <table id="deviceinfogrid" class="table table-striped table-specialresponsive">
+            <!--<table id="deviceinfogrid" class="table table-bordered table-responsive">-->
+
+            <thead class=" hidden-xs">
+                <tr>
+                    <th class="text-center">
+                        {{ 'Device_Code' | translate}}
+                    </th>
+                    <th class="text-center">
+                        {{ 'Title' | translate}}
+                    </th>
+                    <th>
+                        {{'Green_House'|translate}}
+                    </th>
+                    <th class="text-center">{{"Schedule_mode_name"|translate}}</th>
+                    <th class="text-center">
+                        {{ 'Is_Device_Enable' | translate}}
+
+                    </th>
+                    <th class="text-center">
+                        {{ 'Power' | translate}}
+                    </th>
+                    <th class="text-center">
+                        ...
+                    </th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="d in deviceinforecs">
+                <tr class=" main-row ">
+
+                    <td data-title="  {{ 'Device_Code' | translate}} :" class="text-center">
+                        <strong>{{ d.code }}</strong>
+                    </td>
+
+                    <td data-title="    {{ 'Title' | translate}} :" class="text-center">
+                        <strong> {{ d.title }} </strong>
+                    </td>
+                    <td>{{d.greenHouse.title }}</td>
+                    <td data-title=" {{'Schedule_mode_name'|translate}} :" ng-if=" d.schedulemode == 4 " id="schmode" class="text-center">
+                        <a href="" ng-click="ok()">
+                            <strong>{{getSchModeAsString(d.schedulemode)}}</strong>
+                        </a>
+                        <td data-title=" {{'Schedule_mode_name'|translate}} :" ng-if=" d.schedulemode != 4 " id="schmode" class="text-center">
+                            <strong>{{getSchModeAsString(d.schedulemode)}}</strong>
+                        </td>
+                        <td data-title=" {{ 'Is_Device_Enable' | translate}} :" ng-if=" d.deviceenable == true " class="text-center">
+                            <strong>
+                                <span class="label label-success">{{ 'Enable' | translate}} </span>
+                            </strong>
+                        </td>
+                        <td data-title=" {{ 'Is_Device_Enable' | translate}} :" ng-if=" d.deviceenable == false " class="text-center">
+                            <strong>
+                                <span class="label label-danger">{{ 'Disable' | translate}}</span>
+                            </strong>
+                        </td>
+
+                        <td data-title=" {{ 'Power' | translate}} :" ng-if=" d.powerstatus == true " class="text-center">
+                            <strong>
+                                <span class="label label-success">{{'On'|translate}}</span>
+                            </strong>
+                        </td>
+                        <td data-title=" {{ 'Power' | translate}}:" ng-if=" d.powerstatus == false " class="text-center">
+                            <strong>
+                                <span class="label label-danger">{{'Off'|translate}}</span>
+                            </strong>
+                        </td>
+
+                        <td data-title="" class="text-center">
+                            <btn-edit only-icon="true" ng-click="showDialogEditinfo('booking',d)"></btn-edit>
+                            &nbsp; &nbsp;
+                            <btn-remove only-icon="true" ng-click="delete_device_info_OpenDialog(d)"></btn-remove>
+
+                        </td>
+
+                        <div class="row visible-xs">
+                            <btn-cancel></btn-cancel>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+    <div class="row visible-xs ">
+        <div class="container" style="width:auto">
+            <div ng-repeat="d in deviceinforecs">
+                <div class="row ">
+                    <div class="container">
+                        <div class="form-group">
+                            <div class="col-xs-4">{{ 'Device_Code' | translate}} :</div>
+                            <div class="col-xs-8">
+                                <strong>{{ d.code }}</strong>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-4">{{ 'Title' | translate}} :</div>
+                            <div class="col-xs-8">
+                                <strong>{{ d.title }} </strong>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-4">{{'Schedule_mode_name'|translate}} :</div>
+                            <div class="col-xs-8">
+                                <strong>{{getSchModeAsString(d.schedulemode)}}</strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-4">{{ 'Is_Device_Enable' | translate}} :</div>
+                            <div class="col-xs-8" ng-if=" d.deviceenable == true ">
+                                <strong>
+                                    <span class="label label-success">{{ 'Enable' | translate}} </span>
+                                </strong>
+                            </div>
+                            <div class="col-xs-8" ng-if=" d.deviceenable == false ">
+                                <strong>
+                                    <span class="label label-danger">{{ 'Disable' | translate}}</span>
+                                </strong>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group">
+                            <div class="col-xs-4"> {{ 'Power' | translate}} :</div>
+
+                            <div class="col-xs-8" ng-if=" d.powerstatus == true ">
+                                <strong>
+                                    <span class="label label-success">{{'On'|translate}}</span>
+                                </strong>
+                            </div>
+
+                            <div class="col-xs-8" ng-if=" d.powerstatus == false ">
+                                <strong>
+                                    <span class="label label-danger ">{{'Off'|translate}}</span>
+                                </strong>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group">
+
+
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <btn-edit only-icon="false" ng-click="showDialogEditinfo('booking',d)"></btn-edit>
+                                </div>
+                                <div class="col-xs-4">
+
+                                <btn-remove only-icon="false" ng-click="delete_device_info_OpenDialog(d)"></btn-remove>
+                            </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <hr>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+</div>

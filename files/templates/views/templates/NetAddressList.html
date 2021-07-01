@@ -1,0 +1,62 @@
+<style>
+
+</style>
+
+    <div class="modal-header" ng-init="init()">
+        <h4 class="modal-title">{{ 'Net_List' | translate}} </h4>
+    </div>
+
+    <div class="modal-body" id="ModelBody">
+
+
+        <!---================================= Date picker start time =================================-->
+        <div class="row">
+            <table style="direction: ltr" id="deviceinfogrid" class="table table-specialresponsive table-hover">
+
+                <thead>
+                <tr>
+
+                    <th class="text-center">
+                        {{ 'IP' | translate}}
+                    </th>
+                    <th class="text-center">
+                        {{ 'Mac' | translate}}
+                    </th>
+                    <th class="text-center">
+                        {{ 'Description' | translate}}
+                    </th>
+
+
+                </tr>
+
+                </thead>
+
+                <tbody ng-repeat="d in _Records">
+                <tr class="main-row clickable-row">
+
+                    <td data-title="{{ 'IP' | translate}}: " class="text-center "><strong> {{ d.ip }} </strong></td>
+                    <td data-title="{{ 'Mac' | translate}}: " class="text-center "><strong> {{ d.mac_address }} </strong></td>
+                <td style="text-align: left;" data-title="{{ 'Description' | translate}}: " class="text-center "><strong>{{ d.description }}</strong></td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="modal-footer ">
+
+            <div class="row pull-left ">
+                <div class="col-sm-8 ">
+                    <btn-close  ng-click="cancel()"></btn-close>
+
+
+
+
+                </div>
+
+
+            </div> <!--end model-footer-->
+        </div>
+        <!--ModelBody-->

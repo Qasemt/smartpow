@@ -1,0 +1,11 @@
+{
+    "first_init": true,
+    "ServerHttpsPort": "443",
+    "ServerHttpPort": "80",
+    "WinServerHttpsPort": "6550",
+    "WinServerHttpPort": "6551",
+    "ServerIP": "127.0.0.1",
+    "ServerSensorPort": 5050,
+    "App_Name": "smart-pow",
+    "Folder_Root": "/mypool"
+}

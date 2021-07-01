@@ -1,0 +1,107 @@
+<form novalidate name="myform" class="form-horizontal">
+    <div class="modal-header" ng-init="init()">
+        <h3 class="modal-title">{{titleform|translate}} </h3>
+    </div>
+    <div class="modal-body" style="margin:2px">
+        <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Device Code $$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
+
+
+        <div class="form-group"
+             ng-class="{ 'has-error': myform.devicecode.$invalid || _hassErrorBiggerBiggerOrLess}">
+
+            <label class="control-label col-xs-12 col-sm-2 " text> {{ 'Device_Code' | translate}} </label>
+            <div class=" col-xs-12  col-sm-6">
+                <select class="form-control selectFix" name="devicecode" data-ng-model="selectedDeviceCode"
+                        ng-change="onchangeDeviceItem(selectedDeviceCode)"
+                        ng-options="item.title for item in _getDevicenames">
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!--++++++++++++++++++++++++start time +++++++-->
+        <div class="form-group"
+             ng-class="{ 'has-error': myform.starttime.$invalid || _hassErrorBiggerBiggerOrLess }">
+
+            <label class="control-label  col-xs-12  col-sm-2"> {{ 'Start_Datetime' | translate}} </label>
+
+            <div class=" col-xs-12  col-sm-6">
+
+                <div uib-timepicker style="direction:ltr" name="starttime" ng-model="dailytimeSelected.starttime" ng-change="changed()"
+                            hour-step="hstep" type="text"
+                            minute-step="mstep" show-meridian="ismeridian"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group"
+             ng-class="{ 'has-error': myform.txtDurationInMinutes.$invalid || _hassErrorBiggerBiggerOrLess}">
+
+
+            <label class="control-label col-xs-12  col-sm-2">{{ 'Duration_Dates' | translate}}</label>
+
+            <div class=" col-xs-12  col-sm-9">
+
+                <div class="form-group-sm">
+                    <div class=" col-xs-9  col-sm-8">
+                        <input class="form-control" type="number"
+                               ng-change="onDurationInMinutesChanged(durationinMinutes)"
+                               min="0"
+                               max="100000" ng-model="durationinMinutes"
+                               name="txtDurationInMinutes" required>
+                    </div>
+                    <div class=" col-xs-1  col-sm-1">
+                        <label style="color:darkred"> {{ 'Minutes' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class=" col-xs-12 col-sm-12 col-sm-offset-2">
+                          <span style="color:red" ng-show="myform.txtDurationInMinutes.$invalid">
+                          <label class="validation-error"
+                                 ng-show="myform.txtDurationInMinutes.$error.required">{{ 'Error_2004_Message_Duration_is_required' | translate}}</label>
+                         </span>
+
+                <span style="color:red">
+                        <label class="validation-error"
+                               ng-show="_hassErrorBiggerBiggerOrLess">{{_timeErrorMessage|translate}}</label>
+                            </span>
+            </div>
+
+
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': myform.smsalert.$invalid }">
+
+            <div class=" col-xs-12 col-sm-7 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>
+                        <input name="smsalert" type="checkbox" ng-model="dailytimeSelected.smsalert"/>
+                        {{ 'SMS_Alert' | translate}}
+                    </label>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+            <!-- <button class="btn btn-success width100" ng-disabled="myform.$invalid || _hassErrorBiggerBiggerOrLess"
+                     ng-click="yes()">{{'Save_Title'|translate}}
+             </button>-->
+            <btn-save is-disabled="myform.$invalid || _hassErrorBiggerBiggerOrLess"
+                      ng-click="yes()"></btn-save>
+
+            <btn-cancel ng-click="cancel()"> </btn-cancel>
+
+        </div>
+    </div>
+
+</form>

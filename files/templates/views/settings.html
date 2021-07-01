@@ -1,0 +1,351 @@
+<style>
+    /* .panel-heading {
+        direction: ltr
+    } */
+</style>
+<div ng-controller="ctrlSettings">
+
+    <!--<title>{{appTitleValue}} </title>-->
+    <div>
+        <div page-Header header-name="Settings" icon="glyphicon glyphicon-cog"></div>
+
+        <div class="container">
+
+            <global-alert/>
+
+
+            <div id="FirstRow" class="row ">
+
+                <div class="uib-accordion">
+
+
+                    <uib-accordion close-others="true">
+
+                        <!--******************* Setting Ip Wifi **************************************************-->
+                        <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen">
+
+                            <uib-accordion-heading>
+                                <i class="pull-left glyphicon glyphicon-signal"> </i>&nbsp;{{ 'Network' | translate }}
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status1.open, 'glyphicon-chevron-right': !status1.open}"></i>
+                                <span class="clearfix">
+
+                                </span>
+
+                            </uib-accordion-heading>
+                            <div class="container-fluid">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form name="formIp" class="form-horizontal" ng-submit="formIp.$valid && SubmitFormIP(formIp)" novalidate>
+
+                                            <div id="wifiEnable" class="form-group">
+                                                <div class=" col-sm-10  col-sm-offset-2 radio">
+                                                    <div class="">
+
+                                                        <label>
+                                                            <input type="radio" data-ng-model="wifiIpObj.WifiMode" ng-change="onWifiMode(1)" ng-checked="(wifiIpObj.WifiMode == 1)" name="wifiMode"
+                                                                data-ng-value="1" /> Wifi
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-10 col-sm-offset-2">
+                                                    <div class="radio">
+
+                                                        <label>
+                                                            <input type="radio" data-ng-model="wifiIpObj.WifiMode" ng-change="onWifiMode(2)" ng-checked="(wifiIpObj.WifiMode == 2)" name="wifiMode"
+                                                                data-ng-value="2" /> HotSpot
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class=" col-sm-10 col-sm-offset-2 radio">
+                                                    <div class="">
+
+                                                        <label>
+                                                            <input type="radio" data-ng-model="wifiIpObj.WifiMode" ng-change="onWifiMode(3)" ng-checked="(wifiIpObj.WifiMode == 3)" name="wifiMode"
+                                                                data-ng-value="3" /> Ethernet
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-group">
+                                                 <div class="col-xs-5 col-sm-2">
+                                                     <label for="txtCurrentIP" class="control-label">
+                                                         Current IP
+                                                     </label>
+                                                 </div>
+
+                                                 <div class="col-xs-9 col-sm-6">
+                                                     <input type="text" class="form-control"
+                                                            data-ng-model="wifiIpObj.CurrentIP" ng-readonly="true"
+                                                            ng-pattern='/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/'
+                                                            placeholder='xxx.xxx.xxx.xxx' id="txtCurrentIP"/>
+                                                 </div>
+                                                 <div class="col-xs-1 col-sm-1">
+
+                                                     <btn-check type="button" ng-click="GetCurrentIP()"></btn-check>
+
+                                                 </div>
+                                            </div>-->
+                                            <div class="form-group has-success has-feedback">
+
+                                                <label for="btnNetList" class=" control-label col-xs-5 col-sm-2">
+                                                    Net List
+                                                </label>
+
+
+                                                <!--  <div class="col-xs-9 col-sm-6">
+                                                    <input type="text" ng-readonly="true" class="form-control"
+                                                           data-ng-model="wifiIpObj.MacAddress" id="txtMacAddress"/>
+                                                </div>-->
+                                                <div class="col-xs-1 col-sm-1">
+                                                    <btn-list id="btnNetList" style="color:darkgreen;" ng-click="GetNetAddressList()"></btn-list>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+
+                                                <label for="txtStaticIp" class=" control-label col-xs-5 col-sm-2">
+                                                    <a href="#" uibTooltip-placement="top" uibTooltip="Static IP">Static IP
+                                                    </a>
+                                                </label>
+
+
+                                                <div class="col-sm-6">
+                                                    <!--ng-change="onIpChanged(_txtSetStaticIp)"-->
+
+                                                    <input type="text" id="txtStaticIp" name="txtStaticIp" placeholder='Static IP' data-ng-model="wifiIpObj.StaticIp" ng-pattern='IP_Pattern'
+                                                        class="form-control" required/>
+                                                    <span style="color:red" ng-show="!formIp.txtStaticIp.$pristine && formIp.txtStaticIp.$invalid">
+                                                        <p ng-show="formIp.txtStaticIp.$error.required">{{"Error_2006_Required"|translate}}</p>
+                                                        <p ng-show="formIp.txtStaticIp.$error.pattern">{{"Error_2007_No_Valid_IP"|translate}}</p>
+                                                    </span>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label for="txtSubNetMask" class=" control-label col-xs-5 col-sm-2">
+                                                    <a href="#" uibTooltip-placement="top" uibTooltip="Subnet Mask">Subnet Mask
+                                                    </a>
+                                                </label>
+
+
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="txtSubNetMask" ng-pattern='IP_Pattern' required ng-model="wifiIpObj.SubNetMask" class="form-control"
+                                                        id="txtSubNetMask" />
+                                                    <span style="color:red" ng-show="!formIp.txtSubNetMask.$pristine && formIp.txtSubNetMask.$invalid">
+                                                        <p class="error" class="help-block" ng-show="formIp.txtSubNetMask.$error.pattern">{{"Error_2007_No_Valid_IP"|translate}} [xxx.xxx.xxx.xxx]
+                                                        </p>
+
+                                                        <p class="error" class="help-block" ng-show="formIp.txtSubNetMask.$error.required">{{"Error_2006_Required"|translate}}</p>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!--*************************Default Gateway Ip*****************-->
+                                            <div class="form-group">
+
+                                                <label for="txtDefaultGatewayIp" class="control-label col-xs-5 col-sm-2">
+                                                    <a href="#" uibTooltip-placement="top" uibTooltip="txtDefault Gateway">Default Gateway
+                                                    </a>
+                                                </label>
+
+
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="txtDefaultGatewayIp" ng-pattern='IP_Pattern' ng-model="wifiIpObj.DefaultGatewayIp" class="form-control"
+                                                        id="txtDefaultGatewayIp" />
+                                                    <span style="color:red" ng-show="!formIp.txtDefaultGatewayIp.$pristine && formIp.txtDefaultGatewayIp.$invalid">
+                                                        <p class="error" class="help-block" ng-show="formIp.txtDefaultGatewayIp.$error.pattern">{{"Error_2007_No_Valid_IP"|translate}}</p>
+
+                                                        <!--<p class="error" class="help-block"-->
+                                                        <!--ng-show="formIp.txtDefaultGatewayIp.$error.required">Required!</p>-->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!--*************************Wifi Name *****************-->
+                                            <div class="form-group">
+
+                                                <label for="txtWifiName" class="control-label col-xs-5 col-sm-2">
+                                                    {{'Wifi_Name'|translate}}
+                                                </label>
+
+
+                                                <div class="col-sm-6">
+                                                    <input type="text" ng-model="wifiIpObj.WifiName" required class="form-control" name="txtWifiName" id="txtWifiName" ng-reasdonly="!(wifiIpObj.WifiMode != 3)"
+                                                    />
+                                                    <span style="color:red" ng-show="!formIp.txtWifiName.$pristine && formIp.txtWifiName.$invalid">
+                                                        <p class="error" class="help-block" ng-show="formIp.txtWifiName.$error.required">{{"Error_2006_Required"|translate}}</p>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label for="txtWifiPassword" class="col-sm-2 control-label col-xs-5 col-sm-2">
+                                                    {{'Password'|translate}}
+                                                </label>
+
+                                                <div class="col-sm-6">
+                                                    <input type="password" required ng-model="wifiIpObj.WifiPassword" class="form-control" name="txtWifiPassword" ng-minlength="4"
+                                                        ng-maxlength="15" ng-readonly="!(wifiIpObj.WifiMode != 3)" id="txtWifiPassword"
+                                                    />
+                                                    <span style="color:red" ng-show="!formIp.txtWifiPassword.$pristine && formIp.txtWifiPassword.$invalid">
+                                                        <p class="error" class="help-block" ng-show="formIp.txtWifiPassword.$error.required">{{"Error_2006_Required"|translate}}</p>
+                                                        <p ng-show="formIp.txtWifiPassword.$error.minlength">{{"Error_2009_Password_is_too_short"|translate}}</p>
+                                                        <p ng-show="formIp.txtWifiPassword.$error.maxlength">{{"Error_2010_Password_is_too_long"|translate}}</p>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <btn-save is-disabled="formIp.$invalid" setclass="" btntype="submit"></btn-save>
+                                                    <!--   <button ng-disabled="formIp.$invalid" type="submit" class="btn btn-default">
+                                                           {{'Save_Title'|translate}}
+                                                       </button>-->
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--******************** Date Time ***********************************************************-->
+
+                        <div uib-accordion-group class="panel-default" is-open="status2.open">
+                            <uib-accordion-heading>
+                                <i class="pull-left glyphicon glyphicon-time"> </i>&nbsp; {{ 'Date_Time' | translate }}
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status2.open, 'glyphicon-chevron-right': !status2.open}"></i>
+                            </uib-accordion-heading>
+                            <div class="container-fluid">
+                                <div class="form row">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal" name="myform" role="form">
+                                            <div class="form-group ">
+
+                                                <label for="txtCurrentDateTime" class="col-xs-6 col-sm-2 control-label">
+                                                    {{'Current_DateTime'|translate}}
+                                                </label>
+
+
+                                                <div class="col-xs-9 col-sm-6">
+                                                    <input type="text" class="form-control" style="direction: ltr" readonly id="txtCurrentDateTime" data-ng-model="currentDatetime"
+                                                    />
+
+                                                </div>
+                                                <div class="col-xs-3 col-sm-1">
+                                                    <btn-check ng-click="GetSystemTime()" type="submit"></btn-check>
+
+                                                </div>
+
+
+                                            </div>
+                                            <div class="form-group ">
+
+                                                <label for="txtSetDateTime" class="col-xs-9 col-sm-2 control-label">
+                                                    {{'Set_DateTime'|translate}}
+                                                </label>
+
+
+                                                <div class="col-xs-9 col-sm-6">
+
+                                                    <input type="text" placeholder="For exam  2016-05-06 23:01:05" style="direction: ltr" data-ng-model="_txtSetDataTime" ng-change="onSystemTimeChanged(_txtSetDataTime)"
+                                                        class="form-control" id="txtSetDateTime" app-datetime/>
+
+                                                </div>
+
+                                                <div class="col-xs-12  col-sm-1 ">
+                                                    <div class="visible-xs">&nbsp;</div>
+                                                    <btn-save is-disabled="_systemTimeIsNotValid" ng-click="SetSystemTime(_txtSetDataTime)"></btn-save>
+
+                                                </div>
+
+
+                                            </div>
+                                            <!--<alert type="success" ng-visable="false" close="bCloseAlert=1" ng-hide="bCloseAlert" role="alert">teset</alert>-->
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--******************** Reboot ***********************************************************-->
+                        <div uib-accordion-group class="panel-default" is-open="status3.open">
+                            <uib-accordion-heading>
+                                <i class="pull-left glyphicon glyphicon-repeat"> </i>&nbsp; {{ 'Reboot' | translate }}
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status3.open, 'glyphicon-chevron-right': !status3.open}"></i>
+                            </uib-accordion-heading>
+                            <div class="uib-accordion-body">
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12">
+                                        <div class="input-group input-group-sm ">
+                                            <label for="txtCurrentDateTime" class=" control-label">
+
+                                                {{'SettingPage_ResetMessage'|translate}}
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-xs-11">
+                                        <div class="input-group input-group-sm ">
+                                            <button ng-click="GetSystemReboot()" type="submit" class="btn btn-default">
+                                                {{'Reset'|translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!--******************** Langs ***********************************************************-->
+                        <div uib-accordion-group class="panel-default" is-open="status4.open">
+                            <uib-accordion-heading>
+                                <i class="pull-left glyphicon glyphicon-globe"> </i>&nbsp; {{ 'Languages' | translate }}
+                                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status4.open, 'glyphicon-chevron-right': !status4.open}"></i>
+                            </uib-accordion-heading>
+
+                            <div class="uib-accordion-body">
+                                <div class="form-group">
+                                    <div class="input-group input-group-sm">
+                                        <label for="txtCurrentDateTime" class="col-xs-12 col-sm-12 control-label">
+                                            {{'Change_Language'|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="form-group ">
+                                        <button class="btn btn-default width100" ng-click="MyUtil.changeLanguage('fa')">فارسی
+                                        </button>
+
+                                        <button class="btn btn-default width100" ng-click="MyUtil.changeLanguage('en')">
+                                            English
+                                        </button>
+
+                                        <button class="btn btn-default width100" ng-click="MyUtil.changeLanguage('ar')">عربی
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </uib-accordion>
+
+                    </uib-accordion>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

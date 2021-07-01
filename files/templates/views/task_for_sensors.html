@@ -1,0 +1,124 @@
+<div ng-controller="ctrlTask_For_Sensors">
+
+    <div>
+
+            <div page-Header header-name="task_for_sensors_Title_page"  icon=""></div>
+       
+
+        <div class="container">
+            <div class="row" >
+             <div class="col-sm-2 col-xs-4" style="padding-right: 0px;">
+               
+                <input   class="form-control pull-left" type="text" placeholder="{{'Search_for_Device_Code'|translate}}"
+                       ng-model="searchValue">
+                 </div>
+              
+
+
+            </div>
+
+            <p></p>
+
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table id="DailyGrid" ng-table="DailyGrid" show-filter="true"
+                           class="table  table-bordered table-responsive table-hover">
+                        <thead>
+
+                        <tr>
+                            <th  ng-click="sortType = 'deviceCode'; sortReverse = !sortReverse"> {{'Device_Code'|translate}}
+
+
+                         <span ng-show="sortType == 'deviceCode' && !sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="sortType == 'deviceCode'&& sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+
+                            </th>
+                            <th>
+                                Value 1
+                            </th>
+                            <th>
+                                Value 2
+                            </th>
+                            <td>
+                                {{'sensor_code'|translate}}
+                            </td>
+                            <th>{{'Sensitive_sensor'|translate}}
+                            </th>
+                            <th>
+                                {{"SMS_Alert"|translate}}
+                            </th>
+                            <th  class="text-center sortable" ng-click="sortType = 'istaskactive'; sortReverse = !sortReverse">
+
+                                    Is task Active
+                            <span ng-show="sortType == 'istaskactive' && sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="sortType == 'istaskactive'&& !sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+
+                            </th>
+                            <th>
+...
+                            </th>
+
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr ng-repeat="r in recs_tempandhumi | orderBy:myValueFunction:sortReverse | filter: { deviceCode: searchValue }">
+
+
+                            <td data-title="'deviceCode'" align="center"><b>{{ r.deviceCode }}</b></td>
+                            <td align="center" dir="ltr">{{ r.value1 }}</td>
+
+                            <td align="center" dir="ltr">{{r.value2 }}</td>
+                            <td data-title="sensorcode" align="center"><b>{{ r.sensorcode }}</b></td>
+                            <td ng-if="r.sensitivesensor == 1" align="center">
+                                <h5><span class="label label-danger">Temp</span></h5>
+                            </td>
+                            <td ng-if="r.sensitivesensor == 2" align="center">
+                                <h5><span class="label label-info">Humi</span></h5>
+                            </td>
+                            <td ng-if="r.sensitivesensor == 3" align="center">
+                                <h5><span class="label label-info">&nbsp&nbsp&nbspEC&nbsp&nbsp&nbsp</span></h5>
+                            </td>
+                            <td ng-if="r.sensitivesensor == 4" align="center">
+                                <h5><span class="label label-info">&nbsp&nbsp&nbspPH&nbsp&nbsp&nbsp</span></h5>
+                            </td>
+                            <td>
+                                <icon-check state-value="r.smsalert " icon-false-color="darkred"></icon-check>
+                            </td>
+
+
+                            <td ng-if=" r.istaskactive == true " align="center">
+                                <h5><span class="label label-success">{{'Start'|translate}}</span></h5>
+                            </td>
+                            <td ng-if=" r.istaskactive == false " align="center">
+                                <h5><span class="label label-danger">{{'Stop'|translate}}</span></h5>
+                            </td>
+
+
+                            <td>
+                                <button type="button" class="btn btn-info" ng-click="editOpenDialog('booking',r)"><span
+                                        class="glyphicon glyphicon-pencil"></span></button>
+
+                                <button type="button" class="btn btn-danger"
+                                        ng-click="deleteOpenDialog('booking',r)"><span
+                                        class="glyphicon glyphicon-remove"></span></button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <btn-insert ng-click="InsertOpenDialog('booking')"></btn-insert>
+           </div>
+
+
+    </div>
+

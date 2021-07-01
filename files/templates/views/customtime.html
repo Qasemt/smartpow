@@ -1,0 +1,251 @@
+<style>
+    .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+    }
+
+    .partially button span {
+        background-color: orange;
+        border-radius: 32px;
+        color: black;
+    }
+</style>
+
+
+<div ng-controller="ctrlCustomTimes">
+
+    <title>{{appTitleValue}} </title>
+    <div class="modal-header">
+        <h3 class="modal-title">Custom Time List </h3>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <input class="span4 pull-left" type="text" placeholder="Search for Device Code " ng-model="searchValue">
+
+        </div>
+        <p></p>
+        <div class="row">
+            <div class="table-responsive">
+                <table id="deviceinfogrid" class="table table-bordered table-striped">
+
+                    <thead>
+                    <tr>
+                        <td>
+                            Device Code
+                        </td>
+                        <td>
+                            Start time
+                        </td>
+                        <td>
+                            End time
+                        </td>
+                        <td>
+                            Duration of Second
+                        </td>
+                        <td>
+                            Duration of Minute
+                        </td>
+                        <td>
+                            SMS Alert
+                        </td>
+                        <td>
+                            Is task Active
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr data-ng-repeat="r in _Records  | filter: { deviceCode: searchValue }">
+                        <td align="center"><b>{{ r.deviceCode }}</b></td>
+                        <td align="center">{{ r.starttime | date:'yyyy-MM-dd HH:mm'}}</td>
+                        <!--<td>{{r.endtime.format("HH:MM:ss") }}</td>-->
+
+                        <td align="center">{{r.endtime | date:'yyyy-MM-dd HH:mm'}}</td>
+
+                        <td align="center">{{ r.durationofsecond }}</td>
+                        <td align="center">{{ r.durationofminute }}</td>
+
+                        <td ng-if=" r.smsalert == true " align="center">
+                            <h5><span class="label label-success">Enable</span></h5>
+                        </td>
+                        <td ng-if=" r.smsalert == false " align="center">
+                            <h5><span class="label label-danger">Disable</span></h5>
+                        </td>
+
+                        <td ng-if=" r.istaskactive == true " align="center">
+                            <h5><span class="label label-success">Start</span></h5>
+                        </td>
+                        <td ng-if=" r.istaskactive == false " align="center">
+                            <h5><span class="label label-danger">Stop</span></h5>
+                        </td>
+
+
+                        <td>
+                            <button type="button" class="btn btn-info" ng-click="editOpenDialog('booking',r)"><span
+                                    class="glyphicon glyphicon-pencil"></span></button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" ng-click="deleteOpenDialog('booking',r)"><span
+                                    class="glyphicon glyphicon-remove"></span></button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+
+            <a class="btn btn-small btn-danger" ng-click="InsertOpenDialog('booking')"><i
+                    class="glyphicon glyphicon-plus"></i> Add new</a>
+        </div>
+    </div>
+    <!------------------------Define Templats--------------------------------------------->
+    <script type="text/ng-template" id="deleteTemplate.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Delete</h3>
+        </div>
+        <div class="modal-body">
+            <p> Are you sure you want to delete?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="yes()">Yes</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+
+    </script>
+    <!--edit template-->
+    <script type="text/ng-template" id="editTemplate.html">
+
+        <form novalidate name="myform" class="form-horizontal">
+            <div class="modal-header" ng-init="init()">
+                <h3 class="modal-title">{{titleform}} </h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group"
+                     ng-class="{ 'has-error': myform.devicecode.$invalid || _hassErrorBiggerBiggerOrLess}">
+                    <label class="control-label  col-sm-6 col-md-3 col-lg-3 "> Device Codes </label>
+
+                    <div class=" col-sm-6 col-md-3 col-lg-3 ">
+                        <select name="devicecode" data-ng-model="selectedDeviceCode"
+                                ng-change="onchangeDeviceItem(selectedDeviceCode)"
+                                ng-options="item.title for item in _getDevicenames">
+                        </select>
+
+                    </div>
+                    <!--<h3>You have selected : {{dayselected}}</h3>-->
+                </div>
+                <hr/>
+                <!---================================= Date picker start time =================================-->
+                <p class="text-center"><span class="label label-info"> Start Date time </span></p>
+                <div class="row form-group"
+
+                     ng-class="{ 'has-error': myform.starttime.$invalid || _hassErrorBiggerBiggerOrLess }">
+
+                    <label class="control-label col-sm-2 col-md-3 col-lg-3"><p class="text-center">Date</p></label>
+
+                    <div class="col-x-6 col-sm-6 col-md-3 col-lg-3 ">
+                        <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                               datepicker-options="dateOptions" ng-model="RecordSelected.starttime"
+                               is-open="opened.start" ng-required="true" close-text="Close"/>
+
+                    </div>
+
+
+
+                <span class="input-group-btn">
+              <button style="height:34px;" class="btn btn-default" ng-click="startDatePickerOpen()">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+              </span>
+
+                </div>
+                <!--============== time ==============-->
+                <div class="form-group"
+                     ng-class="{ 'has-error': myform.starttime.$invalid || _hassErrorBiggerBiggerOrLess }">
+
+                    <label class="control-label  col-sm-6 col-md-3 col-lg-3"><p class="text-center">Time</p></label>
+
+                    <div class="col-sm-3">
+                        <timepicker name="starttime" ng-model="RecordSelected.starttime" ng-change="changed()"
+                                    hour-step="hstep" type="text"
+                                    minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                    </div>
+                    <div class="col-sm-5 ">
+                        <label class="validation-error" ng-show="_hassErrorBiggerBiggerOrLess">{{_timeErrorMessage
+                            }}</label>
+                    </div>
+
+                </div>
+                <hr>
+                <!---==================================================================-->
+
+                <!--Start-time must be smaller then End-time.-->
+
+                <!-- ================================================================
+                   ====================== Date picker end time =====================
+                    ================================================================-->
+                <p class="text-center"><span class="label label-info"> End Date time</span></p>
+
+                <div class="form-group"
+                     ng-class="{ 'has-error': myform.starttime.$invalid || _hassErrorBiggerBiggerOrLess }">
+                    <label class="control-label col-sm-2 col-md-3 col-lg-3"><p class="text-center">Date</p></label>
+
+                    <div class="col-x-6 col-sm-6 col-md-3 col-lg-3 ">
+                        <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd"
+                               ng-model="RecordSelected.endtime"
+                               is-open="opened.end" ng-required="true" close-text="Close"/>
+                    </div>
+                        <span class="input-group-btn">
+              <button style="height:34px;" class="btn btn-default" ng-click="endDatePickerOpen()">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+              </span>
+
+                </div>
+                <!--++++++++++++++++end time +++++-->
+                <div class="form-group"
+                     ng-class="{ 'has-error': myform.endtime.$invalid || _hassErrorBiggerBiggerOrLess}">
+                    <label class="control-label  col-sm-6 col-md-3 col-lg-3"><p class="text-center"> Time</p></label>
+
+                    <div class="col-sm-5">
+                        <timepicker name="endtime" ng-model="RecordSelected.endtime" ng-change="changed()"
+                                    hour-step="hstep"
+                                    minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                    </div>
+                </div>
+                <hr>
+                <!--=======================================================-->
+                <!--+++++++++++++++++++ SMS Alert +++-->
+                <div class="form-group" ng-class="{ 'has-error': myform.smsalert.$invalid }">
+
+                    <label class="control-label  col-sm-6 col-md-3 col-lg-3"><p class="text-center">SMS Alert</p>
+                    </label>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3">
+                        <input name="smsalert" type="checkbox" ng-model="RecordSelected.smsalert"/></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-disabled="myform.$invalid || _hassErrorBiggerBiggerOrLess"
+                        ng-click="yes()">Save
+                </button>
+                <!--myform.$invalid &&-->
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+
+            </div>
+            </div>
+        </form>
+
+    </script>
+</div>

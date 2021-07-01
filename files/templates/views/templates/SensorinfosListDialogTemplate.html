@@ -1,0 +1,82 @@
+<style>
+</style>
+<form novalidate name="myform">
+    <div class="modal-header" ng-init="init()">
+        <h4 class="modal-title">{{ 'Sensor_List' | translate}} </h4>
+    </div>
+
+    <div class="modal-body" id="ModelBody">
+
+
+        <!---================================= Date picker start time =================================-->
+        <div class="row">
+            <table id="deviceinfogrid" class="table table-specialresponsive table-hover">
+                <!--<table id="deviceinfogrid" class="table table-bordered table-responsive">-->
+                <!--<title>Sensor List </title>-->
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            {{ 'Device_Code' | translate}}
+                        </th>
+                        <th class="text-center">
+                            {{ 'Sensor' | translate}}
+                        </th>
+                        <th class="text-center">
+                            {{ 'Green_House' | translate}}
+                        </th>
+                        <th class="text-center">
+                            {{ 'Description' | translate}}
+                        </th>
+                        <th class="text-center">
+
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody ng-repeat="d in _Records">
+                    <tr class="main-row clickable-row">
+                        <!--<td data-title="Device Code " align="center "><h3> {{ d.code }}</h3></td>-->
+                        <td data-title="Sensor Code : " class="text-center ">
+                            <strong>{{ d.sensorcode }}</strong>
+                        </td>
+                        <td data-title="Title : " class="text-center ">
+                            <strong> {{ d.title }} </strong>
+                        </td>
+                        <td data-title="GH : " class="text-center ">
+                            <strong> {{ d.greenHouse.title }} </strong>
+                        </td>
+                        <!--    <td data-title="Description " class="text-center "><strong> {{ d.description }} </strong></td>-->
+
+                        <td data-title=" " class="text-center ">
+                            <strong>
+                                <button class="btn btn-small btn-success " ng-click="setSelected() " type="button ">
+                                    <span class="glyphicon glyphicon-ok-sign "></span>
+                                </button>
+
+                            </strong>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="modal-footer ">
+
+            <div class="row pull-left ">
+                <div class="col-sm-8 ">
+                    <btn-cancel ng-click="cancel()"></btn-cancel>
+
+
+                    </button>
+
+                </div>
+
+
+            </div>
+            <!--end model-footer-->
+        </div>
+        <!--ModelBody-->
+    </div>
+</form>

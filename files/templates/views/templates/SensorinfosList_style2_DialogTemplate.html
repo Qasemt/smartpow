@@ -1,0 +1,108 @@
+<style>
+</style>
+<form novalidate name="myform">
+    <div class="modal-header" ng-init="init()">
+        <h4 class="modal-title">{{ 'Sensor_List' | translate}} </h4>
+    </div>
+
+    <div class="modal-body" id="ModelBody">
+
+
+        <!---================================= Date picker start time =================================-->
+        <table class='table table-hover table-bordered table-striped'>
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        {{ 'Device_Code' | translate}}
+                    </th>
+                    <th class="text-center">
+                        {{ 'Sensor' | translate}}
+                    </th>
+                    <th class="text-center">
+                        {{ 'Green_House' | translate}}
+                    </th>
+                    <th class="text-center">
+                        &nbsp;
+                    </th>
+
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr  ng-click="onSelectType($index) " ng-repeat-start="d in _Records"   class="main-row clickable-row" data-toggle='collapse' data-target="">
+                    <!--<td data-title="Device Code " align="center "><h3> {{ d.code }}</h3></td>-->
+                    <td data-title="Sensor Code : " class="text-center ">
+                        <strong>{{ d.sensorcode }}</strong>
+                    </td>
+                    <td data-title="Title : " class="text-center ">
+                        <strong> {{ d.title }} </strong>
+                    </td>
+                    <td data-title="GH : " class="text-center ">
+                        <strong> {{ d.greenHouse.title  }} </strong>
+                    </td>
+
+
+                    <td data-title=" " class="text-center ">
+                        <strong>
+                                <span ng-bind="d.hide ? '-' : '+'"></span>
+                            <!-- <button class="btn btn-small btn-success " ng-click="onSelectType($index) " type="button ">
+                                <span class="glyphicon glyphicon-ok-sign "></span>
+                            </button> -->
+
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr ng-repeat-end class="table-details" ng-model="d">
+                    <td colspan='4' ng-show="d.hide">
+
+                        <div class="row">
+                            <button  ng-disabled="d.hastemp==0" ng-click="onItemSelectType(d,1)" type="button" class="btn btn-default color-temp">
+                                <i class=""></i>&nbsp;{{'TEMP'|translate}}</button>
+
+
+                            <button ng-disabled="d.hashum==0" ng-click="onItemSelectType(d,2)" type="button" class="btn btn-default color-hum " >
+                                <i class=""></i>&nbsp;{{'HUM'|translate}}</button>
+
+                            <button ng-disabled="d.hasPH==0" ng-click="onItemSelectType(d,3)" type="button" class="btn btn-default color-ph" >
+                                <i class=""></i>&nbsp;&nbsp;{{'PH'|translate}}&nbsp;&nbsp;</button>
+
+
+                            <button ng-disabled="d.hasEC==0" ng-click="onItemSelectType(d,4)" type="button" class="btn btn-default  color-ec" >
+                                <i class=""></i>&nbsp;&nbsp;{{'EC'|translate}}&nbsp;&nbsp;</button>
+
+                                <button ng-disabled="d.haslux==0" ng-click="onItemSelectType(d,5)" type="button" class="btn btn-default  color-lux" >
+                                    <i class=""></i>&nbsp;&nbsp;{{'LUX'|translate}}&nbsp;&nbsp;</button>
+
+                                    <button ng-disabled="d.hasCO2==0" ng-click="onItemSelectType(d,6)" type="button" class="btn btn-default  color-co2" >
+                                        <i class=""></i>&nbsp;&nbsp;{{'CO2'|translate}}&nbsp;&nbsp;</button>
+
+                            </div>
+
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+        <div class="modal-footer ">
+
+            <div class="row pull-left ">
+                <div class="col-sm-8 ">
+                    <btn-cancel ng-click="cancel()"></btn-cancel>
+
+
+                    </button>
+
+                </div>
+
+
+            </div>
+            <!--end model-footer-->
+        </div>
+        <!--ModelBody-->
+    </div>
+</form>

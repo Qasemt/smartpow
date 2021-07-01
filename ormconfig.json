@@ -1,0 +1,24 @@
+ {
+    "name": "default",
+    "type": "mariadb",
+    "database": "smartdb",
+    "autoSchemaSync": true,
+    "synchronize": true,
+    "entities": [
+      "src/model/**/*.ts"
+    ],
+    "subscribers": [
+      "src/subscriber/**/*.ts"
+    ],
+    "migrations": [
+      "src/migration/**/*.ts"
+    ],
+    "logging": {
+      "logQueries": true
+    },
+    "cli": {
+      "entitiesDir": "src/model",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+    }
+  }

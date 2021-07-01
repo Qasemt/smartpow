@@ -1,0 +1,85 @@
+<div ng-controller="ctrlGreen_houses">
+
+    <div>
+
+            <div page-Header header-name="Green_House_Title_Page"  icon="glyphicon glyphicon-cog"></div>
+       
+
+        <div class="container">
+            <div class="row">
+                   <global-alert/>
+                 
+                <div class="col-sm-2 col-xs-6" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <input class="form-control pull-left" type="text"
+                               placeholder="{{'Search_for_green_house_Code'|translate}}"
+                               ng-model="searchValue">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <p></p>
+
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table id="DailyGrid" show-filter="true"
+                           class="table  table-bordered table-responsive table-nonfluid table-hover">
+                        <thead>
+
+                        <tr>
+                            <th   class="text-center sortable"  ng-click="sortType = 'code'; sortReverse = !sortReverse" style="width: 120px !important;">
+
+                                    {{'SensorCode'|translate}}
+                                    <span ng-show="sortType == 'code' && sortReverse"
+                                          class="glyphicon glyphicon-triangle-bottom"></span>
+                                    <span ng-show="sortType == 'code'&& !sortReverse"
+                                          class="glyphicon glyphicon-triangle-top"></span>
+
+                            </th>
+                         
+                            <th>
+                                {{'Title'|translate}}
+                            </th>
+                       
+
+                            <th style="width: 110px !important;">
+                                ...
+                            </th>
+
+
+                        </tr>
+                        </thead>
+
+                        <tbody ng-repeat="r in _Records | orderBy:myValueFunction:sortReverse | filter: { code: searchValue }">
+
+                        <tr>
+                            <td data-title="code" align="center"><b>{{ r.code }}</b></td>
+                         
+                            <td>{{r.title }}</td>
+
+                          
+
+
+                            <td>
+                                <btn-edit only-icon="true" ng-click="editOpenDialog('booking',r)"></btn-edit>
+                                <btn-remove only-icon="true" ng-click="deleteOpenDialog('booking',r)"></btn-remove>
+                            </td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <btn-insert ng-click="InsertOpenDialog('booking')"></btn-insert>
+       
+            </div>
+        </div>
+
+
+    </div>
+
+

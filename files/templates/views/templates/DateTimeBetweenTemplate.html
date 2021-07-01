@@ -1,0 +1,84 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title">{{'Duration_Dates'|translate}} </h3>
+</div>
+<div class="modal-body" ng-init="init()">
+    <div class="row">
+        <!-- content goes here -->
+        <form novalidate name="myform" style="margin:3px">
+
+            <!---================================= Date picker start time =================================-->
+
+            <div class="form-group" style="margin: 3px"
+                 ng-class="{ 'has-error': myform.starttime.$invalid || _hassErrorBiggerBiggerOrLess }">
+
+                <div class="col-xs-12 col-sm-2">
+                    <label class="control-label  "> {{'Start_Datetime'|translate}}</label>
+                </div>
+                <div class="col-xs-12 col-sm-9">
+
+
+                    <div class="input-group " id="startDatePicker1">
+
+
+                        <global-date-picker is-shamsi="true" date-time-format="YYYY/MM/DD hh:mm"
+                                            selected-js-Date="DateSelected.StartTime"
+                                            on-Change="changed()"></global-date-picker>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!--  ================================================================
+                  ====================== Date picker end time ====================
+                  ================================================================-->
+
+
+            <div class="form-group"  ng-class="{ 'has-error': myform.endtime.$invalid || _hassErrorBiggerBiggerOrLess }">
+
+                <div class="col-xs-12 col-sm-2">
+                    <label class=" control-label "> {{'End_Datetime'|translate}}</label>
+                </div>
+                <div class="col-xs-12 col-sm-9">
+
+                    <div class=" input-group " id="endDatePicker1">
+
+                        <global-date-picker is-shamsi="true" date-time-format="YYYY/MM/DD hh:mm"
+                                            selected-js-Date="DateSelected.EndTime"
+                                            on-Change="changed()"></global-date-picker>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-sm-offset-2">
+                <div class="form-group ">
+                    <label class="validation-error" ng-show="_hassErrorBiggerBiggerOrLess">
+                        {{_timeErrorMessage|translate}}
+                    </label>
+                </div>
+                <!-- end dateContainer-->
+
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
+<div class="modal-footer">
+
+    <btn-ok is-disabled="_hassErrorBiggerBiggerOrLess" ng-click="yes()"></btn-ok>
+
+    <!--myform.$invalid &&-->
+    <btn-cancel ng-click="cancel()"></btn-cancel>
+
+
+</div>

@@ -1,0 +1,206 @@
+
+<div ng-controller="ctrlWeeklyTimes">
+<title>{{appTitleValue}} </title>
+<div >
+
+    <div class="modal-header">
+        <h3 class="modal-title">Weekly Time List </h3>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <input class="span4 pull-left" type="text" placeholder="Search for Device Code " ng-model="searchValue">
+
+        </div>
+
+        <p></p>
+        <div class="row">
+        <div class="table-responsive">
+            <table id="deviceinfogrid" class="table table-bordered table-striped">
+
+                <thead>
+                <tr>
+                    <td>
+                        Device Code
+                    </td>
+                    <td>
+                        Start time
+                    </td>
+                    <td>
+                        End time
+                    </td>
+                    <td>Day</td>
+                    <td>
+                        Duration of Second
+                    </td>
+                    <td>
+                        Duration of Minute
+                    </td>
+                    <td>
+                        SMS Alert
+                    </td>
+                    <td>
+                        Is task Active
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+                    </td>
+
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr data-ng-repeat="r in _Records  | filter: { deviceCode: searchValue }">
+                    <td align="center"><b>{{ r.deviceCode }}</b></td>
+                    <td align="center">{{ r.starttime | date:'HH:mm'}}</td>
+                    <!--<td>{{r.endtime.format("HH:MM:ss") }}</td>-->
+
+                    <td align="center">{{r.endtime | date:'HH:mm'}}</td>
+                    <td align="center">{{getDayName(r.dayindex)}}</td>
+                    <!--<td> {{r.dayindex }}</td>-->
+                    <td align="center">{{ r.durationofsecond }}</td>
+                    <td align="center">{{ r.durationofminute }}</td>
+                    <td ng-if=" r.smsalert == true " align="center">
+                        <h5><span class="label label-success">Enable</span></h5>
+                    </td>
+                    <td ng-if=" r.smsalert == false " align="center">
+                        <h5><span class="label label-danger">Disable</span></h5>
+                    </td>
+
+                    <td ng-if=" r.istaskactive == true " align="center">
+                        <h5><span class="label label-success">Start</span></h5>
+                    </td>
+                    <td ng-if=" r.istaskactive == false " align="center">
+                        <h5><span class="label label-danger">Stop</span></h5>
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-info" ng-click="editOpenDialog('booking',r)"><span
+                                class="glyphicon glyphicon-pencil"></span></button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" ng-click="deleteOpenDialog('booking',r)"><span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+</div>
+        <a class="btn btn-small btn-danger" ng-click="InsertOpenDialog('booking')"><i
+                class="glyphicon glyphicon-plus"></i> Add new</a>
+    </div>
+    <!------------------------Define Templats--------------------------------------------->
+    <script type="text/ng-template" id="deleteTemplate.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Delete</h3>
+        </div>
+        <div class="modal-body">
+            <p> Are you sure you want to delete?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="yes()">Yes</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+
+    </script>
+    <!--edit template-->
+    <script type="text/ng-template" id="editTemplate.html">
+
+        <form novalidate name="myform" class="form-horizontal">
+            <div class="modal-header" ng-init="init()">
+                <h3 class="modal-title">{{titleform}} </h3>
+            </div>
+            <div class="modal-body">
+
+                <!--<timepicker ng-model="dailytimeSelected.starttime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>-->
+                <!--<pre class="alert alert-info">Time is: {{dailytimeSelected.starttime | date:'shortTime' }}</pre>-->
+                <!--<pre class="alert alert-info" ng-show='isvalided()'>{{ messageError; }}</pre>-->
+                <!--++++++++++++++++ Device code selected +++++-->
+                <div class="form-group"
+                     ng-class="{ 'has-error': myform.devicecode.$invalid || _hassErrorBiggerBiggerOrLess}">
+                    <label class="control-label col-sm-3"> Device Codes </label>
+
+
+                    <select name="devicecode" data-ng-model="selectedDeviceCode"
+                            ng-change="onchangeDeviceItem(selectedDeviceCode)"
+                            ng-options="item.title for item in _getDevicenames">
+                    </select>
+
+
+                    <!--<h3>You have selected : {{dayselected}}</h3>-->
+                </div>
+
+                <!--++++++++++++++++++++++++start time +++++++-->
+                <div class="form-group"
+                     ng-class="{ 'has-error': myform.starttime.$invalid || _hassErrorBiggerBiggerOrLess }">
+
+                    <label class="control-label col-sm-3"> Start Time </label>
+
+                    <div class="col-md-3">
+                        <timepicker name="starttime" ng-model="RecordSelected.starttime" ng-change="changed()"
+                                    hour-step="hstep" type="text"
+                                    minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                    </div>
+                    <div class="col-sm-3 ">
+                        <label class="validation-error" ng-show="_hassErrorBiggerBiggerOrLess">{{_timeErrorMessage}}</label>
+
+                    </div>
+                </div>
+                <!--Start-time must be smaller then End-time.-->
+
+                <!--++++++++++++++++end time +++++-->
+                <div class="form-group "
+                     ng-class="{ 'has-error': myform.endtime.$invalid || _hassErrorBiggerBiggerOrLess}">
+
+                    <label class="control-label col-sm-3 "> End Time </label>
+
+                   <div class="col-md-3">
+                        <timepicker class="col-sm-3"name="endtime" ng-model="RecordSelected.endtime" ng-change="changed()"
+                                    hour-step="hstep"
+                                    minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                    </div>
+                </div>
+                <!--+++++++++++++++++day name  ++++-->
+                <div class="form-group"
+                     ng-class="{ 'has-error': myform.dayindex.$invalid || _hassErrorBiggerBiggerOrLess}">
+                    <label class="control-label col-sm-3"> Day </label>
+
+
+                    <select name="dayindex" data-ng-model="selectedDayItem"
+                            ng-change="onchangeDayItem(selectedDayItem)"
+                            ng-options="item.name for item in _getDayNames">
+                    </select>
+
+
+                    <!--<h3>You have selected : {{dayselected}}</h3>-->
+                </div>
+                <!--+++++++++++++++++++ SMS Alert +++-->
+                <div class="form-group" ng-class="{ 'has-error': myform.smsalert.$invalid }">
+
+                    <label class="control-label col-sm-3"> SMS Alert </label>
+
+
+                    <input name="smsalert" type="checkbox" ng-model="RecordSelected.smsalert"/></div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-disabled="myform.$invalid || _hassErrorBiggerBiggerOrLess"
+                        ng-click="yes()">Save
+                </button>
+                <!--myform.$invalid &&-->
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+
+            </div>
+
+        </form>
+
+    </script>
+</div>
+</div>
+

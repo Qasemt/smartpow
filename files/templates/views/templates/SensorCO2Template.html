@@ -1,0 +1,57 @@
+<div class="panel panel-success  sensor-monitor-fixed-panel " ng-show="x_is_show" style="width: 99%;">
+
+    <div class="panel-heading panel-heading-co2 ">
+           
+        <a style="color:#080404"  href="" ng-click="x_on_sensor_selected_fn(x)" uibTooltip-placement="top" uibTooltip="Subnet Mask">
+            {{params.sensor_title}}
+        </a>
+        &nbsp;
+        &nbsp;
+    
+        <i class="glyphicon glyphicon-ok" ng-show="x_is_selected" ></i>
+        <button type="button" class="close" ng-click="x_on_delete_Fn(x)" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+
+
+
+    <div class="panel-body ltr-force" dir="ltr" style="padding-left:1px ; padding-right:1px ; min-height: 10; max-height: 10; padding-bottom: 2px;">
+
+        <div class="container-fluid " style="padding-left:1px ; padding-right:1px ;     padding-bottom: 2px;">
+
+            <div class=" col-xs-5 col-sm-5 col-md-6 clearfix" ng-if="params.is_switch_to_chart===false">
+                <span>code: {{params.sensor_code}}</span>
+                <br>
+                <span>serial: {{params.sensor_serial}}</span>
+                <br>
+                <span>last time: {{params.sensor_time_last_receive_str}}</span>
+                <br>
+
+            </div>
+
+
+            <div ng-click="on_switch()">
+                <div class="col-xs-7 col-sm-7 col-md-6" ng-if="params.is_switch_to_chart===false">
+
+                    <gauge-global gauge-id="lux{{xsensor_serial}}" title="Co2" symbol-label="ppm" gauge-value="params.sensor_value"
+                        min-value="0" max-value="2000"></gauge-global>
+                </div>
+                <div class="col-xs-7 col-sm-12 col-md-12 clearfix " ng-if="params.is_switch_to_chart===true">
+
+                    <highchart id="chart{{xsensor_serial}}" config="chartConfig" style="height: 300px;
+                         min-width: 290px;
+                         min-height: 160px;
+                         height: 160px;
+                         max-width: 1000px; direction: ltr;font-family: 'yekan'"></highchart>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>

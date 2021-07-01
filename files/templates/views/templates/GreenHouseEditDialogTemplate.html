@@ -1,0 +1,79 @@
+<div class="modal-header " ng-init="init()">
+    <h3 class="modal-title"> {{values.titleform|translate}}</h3>
+</div>
+<div class="modal-body ">
+    <form name="myform" ng-submit="myform.$valid" novalidate class="form-horizontal">
+        <fieldset>
+            <div class="form-group" id="gTitle" ng-class="{ 'has-error': myform.iTitle.$invalid }">
+
+                <label class="control-label col-xs-12 col-sm-2" for="iTitle">{{ 'Title' |translate}} </label>
+
+
+                <div class="col-sm-6 col-xs-12">
+                    <input class="form-control" id="iTitle" name="iTitle" type="text"
+                           ng-minlength="3" ng-maxlength="30"     ng-model="item_selected.title" required/>
+
+                    <div ng-messages="myform.iTitle.$error">
+                        <div ng-message="required">{{"Error_2006_Required"|translate}}</div>
+                        <div ng-message="minlength">{{"Error_2014_Min_Length_String"|translate:"{num:'3'}"}}</div>
+                        <div ng-message="maxlength">{{"Error_2015_Max_Length_String"|translate:"{num:'30'}"}}</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group" id="gcode" ng-class="{ 'has-error': myform.icode.$invalid }">
+
+                <label class="control-label col-xs-12 col-sm-2" for="icode">{{ 'Green_House_Code' |translate}} </label>
+
+
+                <div class="col-sm-6 col-xs-12">
+                    <input class="form-control" id="icode" name="icode" type="number"
+                           min="1" max="2000" ng-model="item_selected.code" required/>
+
+                    <div ng-messages="myform.iSensorcode.$error">
+                        <div ng-message="required">{{"Error_2006_Required"|translate}}</div>
+                        <div ng-message="min">{{"Error_2012_Min_Value"|translate:"{num:'0'}"}}</div>
+                        <div ng-message="max">{{"Error_2013_Max_Value"|translate:"{num:'2000'}"}}</div>
+                    </div>
+                </div>
+
+            </div>
+
+         
+
+           
+
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="col-sm-2 col-xs-12 control-label" for="descTextArea">{{'Description'|translate}}</label>
+                <div class="col-sm-offset-2 col-sm-9 col-xs-12">
+                    <textarea class="form-control" id="descTextArea" ng-maxlength="200" ng-model="item_selected.description"
+                              name="descTextArea"></textarea>
+                    <div ng-messages="myform.descTextArea.$error">
+                        <!-- <div ng-message="minlength">{{"Error_Min_Length_String"|translate:"{num:'100'}"}}</div>-->
+                        <div ng-message="maxlength">{{"Error_Max_Length_String"|translate:"{num:'200'}"}}</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+
+                <div class="col-sm-12 col-xs-12 col-sm-offset-2">
+                    <label class="validation-error" style="color:red"
+                           ng-show="values._has_error_service">{{values._error_service_message|translate}}</label>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+
+</div>
+
+<div class="modal-footer">
+    <btn-save ng-click="yes()" is-disabled="myform.$invalid"></btn-save>
+    <btn-cancel ng-click="cancel()"></btn-cancel>
+</div>
+</div>

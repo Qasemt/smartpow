@@ -1,0 +1,124 @@
+<div ng-controller="ctrlTask_daily_time_for_device">
+    <title>{{appTitleValue}} </title>
+
+    <div>
+
+            <div page-Header header-name="task_daily_time_for_device_Title_Page"  icon="glyphicon glyphicon-cog"></div>
+     
+
+        <div class="container">
+            <div class="row">
+            <div class="col-sm-2 col-xs-12" style="padding-right: 0px;">
+                <div class="form-group">
+                    <input   class="form-control pull-left" type="text" placeholder="{{'Search_for_Device_Code'|translate}}"
+                       ng-model="searchValue"/>
+
+                </div>
+
+            </div>
+            </div>
+
+            <p></p>
+
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table id="DailyGrid" ng-table="DailyGrid" show-filter="true"
+                           class="table table-bordered table-responsive">
+                        <thead>
+
+                        <tr>
+                            <th class="sortable"   ng-click="sortType = 'deviceCode'; sortReverse = !sortReverse">
+
+                                    {{ 'Device_Code' |translate}}
+                            <span ng-show="sortType == 'deviceCode' && sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="sortType == 'deviceCode'&& !sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+
+                            </th>
+                            <th  class="sortable" ng-click="sortType = 'starttime'; sortReverse = !sortReverse">
+
+                                    {{ 'Start_Datetime' |translate}}
+                            <span ng-show="sortType == 'starttime' && sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="sortType == 'starttime'&& !sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+
+                            </th>
+                            <th>
+                                {{ 'End_Datetime' |translate}}
+                            </th>
+
+                            <th>
+                                {{ 'Duration_Dates' |translate}}
+                            </th>
+                            <th style="width: 100px !important;">
+                                {{ 'SMS_Alert' |translate}}
+                            </th>
+                            <th  ng-click="sortType = 'istaskactive'; sortReverse = !sortReverse" style="width: 80px !important;">
+
+                                    {{ 'Is_Task_Active' |translate}}
+                            <span ng-show="sortType == 'istaskactive' && sortReverse"
+                                  class="glyphicon glyphicon-triangle-bottom"></span>
+                            <span ng-show="sortType == 'istaskactive'&& !sortReverse"
+                                  class="glyphicon glyphicon-triangle-top"></span>
+
+                            </th>
+                            <th style="width: 110px !important;">
+                                ...
+                            </th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr ng-repeat="r in recs_dailytimes | orderBy:myValueFunction:sortReverse | filter: { deviceCode: searchValue }">
+                            <!--<tr ng-repeat="r in recs_dailytimes | orderBy:sortType:sortReverse ">-->
+
+                            <td data-title="'deviceCode'" align="center"><b>{{ r.deviceCode }}</b></td>
+                            <td align="center">{{ r.starttime * 1000 | date:'HH:mm'}}</td>
+                            <!--<td>{{r.endtime.format("HH:MM:ss") }}</td>-->
+
+                            <td align="center">{{r.endtime * 1000 | date:'HH:mm'}}</td>
+                           
+						   <td align="center">{{ DateDiffStr(r.starttime,r.endtime) }}</td>
+
+
+                            <td>
+                               <icon-check state-value="r.smsalert " icon-false-color="darkred"></icon-check>
+                            </td>
+
+                            <td ng-if=" r.istaskactive == true " align="center">
+                                <h5><span class="label label-success">{{'Start'|translate}}</span></h5>
+                            </td>
+                            <td ng-if=" r.istaskactive == false " align="center">
+                                <h5><span class="label label-danger">{{'Stop'|translate}}</span></h5>
+                            </td>
+
+
+                            <td>
+                                <btn-edit only-icon="true"  ng-click="editOpenDialog('booking',r)"></btn-edit>
+                                <btn-remove  only-icon="true"  ng-click="deleteOpenDialog('booking',r)"></btn-remove>
+                            <!--    <button type="button" class="btn btn-info" ng-click="editOpenDialog('booking',r)"><span
+                                        class="glyphicon glyphicon-pencil"></span></button>
+
+                                <button type="button" class="btn btn-danger"
+                                        ng-click="deleteOpenDialog('booking',r)"><span
+                                        class="glyphicon glyphicon-remove"></span></button>-->
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <btn-insert ng-click="InsertOpenDialog('booking')"></btn-insert>
+         </div>
+
+
+    </div>
+
+
+</div>

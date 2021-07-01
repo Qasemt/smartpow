@@ -1,0 +1,124 @@
+<div ng-controller="ctrlSensor_Infos">
+
+    <div>
+
+            <div page-Header header-name="Sensor_infos_Title_page"  icon="glyphicon glyphicon-cog"></div>
+        
+        <div class="container">
+            <div class="row">
+                    <global-alert/>
+                <div class="col-sm-2 col-xs-6" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <input class="form-control pull-left" type="text"
+                               placeholder="{{'Search_for_SenSor_Code'|translate}}"
+                               ng-model="searchValue">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <p></p>
+
+            <div class="row">
+                <div class="table-responsive">
+
+                    <table id="DailyGrid" show-filter="true"
+                           class="table  table-bordered table-responsive table-nonfluid table-hover">
+                        <thead>
+
+                        <tr>
+                            <th   class="text-center sortable"  ng-click="sortType = 'sensorcode'; sortReverse = !sortReverse" style="width: 120px !important;">
+
+                                    {{'SensorCode'|translate}}
+                                    <span ng-show="sortType == 'sensorcode' && sortReverse"
+                                          class="glyphicon glyphicon-triangle-bottom"></span>
+                                    <span ng-show="sortType == 'sensorcode'&& !sortReverse"
+                                          class="glyphicon glyphicon-triangle-top"></span>
+
+                            </th>
+                            <th style="width: 150px !important;">
+                                {{'Serial'|translate}}
+                            </th>
+                            <th>
+                                {{'Title'|translate}}
+                            </th>
+                            <th>
+                                {{'Green_House'|translate}}
+                            </th>
+                            <th style="width: 40px !important;">
+                                {{'Temperature'|translate}}
+                            </th>
+                            <th style="width: 40px !important;">
+                                {{'Humidity'|translate}}
+                            </th>
+                            <th style="width: 40px !important;">
+                                {{'EC'|translate}}
+                            </th>
+                            <th style="width: 40px !important;">
+                                {{'PH'|translate}}
+                            </th>
+                            <th style="width: 40px !important;">
+                                {{'LUX'|translate}}
+                            </th>
+                            <th style="width: 40px !important;">
+                                {{'CO2'|translate}}
+                            </th>
+                            
+
+                            <th style="width: 110px !important;">
+                                ...
+                            </th>
+
+
+                        </tr>
+                        </thead>
+
+                        <tbody ng-repeat="r in _Records | orderBy:myValueFunction:sortReverse | filter: { sensorcode: searchValue }">
+
+                        <tr>
+                            <td data-title="sensorcode" align="center"><b>{{ r.sensorcode }}</b></td>
+                            <td>{{r.sensorserial }}</td>
+
+                            <td>{{r.title }}</td>
+                            <td>{{r.greenHouse.title }}</td>
+
+                            <td>
+                                <icon-check state-value="r.hastemp" icon-false-color="darkred"></icon-check>
+                            </td>
+                            <td>
+                                <icon-check state-value="r.hashum" icon-false-color="darkred"></icon-check>
+                            </td>
+                            <td>
+                                <icon-check state-value="r.hasEC" icon-false-color="darkred"></icon-check>
+                            </td>
+                            <td>
+                                <icon-check state-value="r.hasPH" icon-false-color="darkred"></icon-check>
+                            </td>
+                            <td>
+                                <icon-check state-value="r.haslux" icon-false-color="darkred"></icon-check>
+                            </td>
+                            <td>
+                                <icon-check state-value="r.hasCO2" icon-false-color="darkred"></icon-check>
+                            </td>
+
+
+                            <td>
+                                <btn-edit only-icon="true" ng-click="editOpenDialog('booking',r)"></btn-edit>
+                                <btn-remove only-icon="true" ng-click="deleteOpenDialog('booking',r)"></btn-remove>
+                            </td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <btn-insert ng-click="InsertOpenDialog('booking')"></btn-insert>
+            </div>
+        </div>
+
+
+    </div>
+
+

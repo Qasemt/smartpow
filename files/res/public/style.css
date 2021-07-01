@@ -1,0 +1,328 @@
+@font-face {
+    font-family: 'yekan';
+    src: url('/public/home/res/fonts/yekan.eot');
+    src: url('/public/home/res/fonts/yekan.eot#iefix') format('embedded-opentype'), url('/public/home/res/fonts/yekan.woff') format('woff'), url('/public/home/res/fonts/yekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.table th, td {
+    text-align: center;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.well {
+    background: rgb(249, 249, 249);
+}
+
+/*--------------- footer setting -------------- */
+
+/*background:url(/files/sky_bg.jpg) repeat center bottom;  */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 155px;
+    /* width: 1505px; */
+}
+
+footer-custom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 155px;
+    background: url(/public/home/res/files/4.png) repeat center bottom;
+}
+
+/*-------------- End Footer ---------------------*/
+
+.jumbotron-Custom {
+    background: url('/public/home/res/files/sky_bg.jpg') repeat !important;
+}
+
+/*------------------------*/
+
+/* .ltrDir
+{
+    direction: ltr;
+} */
+
+.show-grid {
+    margin-bottom: 1px;
+}
+
+.show-grid [class^="col-"] {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: #eee;
+    background-color: rgba(86, 61, 124, .15);
+    border: 1px solid #ddd;
+    border: 1px solid rgba(86, 61, 124, .2);
+}
+
+.show-grid [class*="row"] {
+    background-color: rgb(109, 131, 103, .15);
+}
+
+.width100 {
+    width: 100px;
+}
+.width50 {
+    width: 50px;
+}
+
+/*برای کنترل Select item درست شده است
+*/
+
+.selectFix {
+    border-left-width: 1px;
+    padding-left: 3px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+}
+
+html, body, div, span, a, li, td, th, highchart {
+    font-family: 'yekan', 'Tahoma';
+}
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.padding_s1 {
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+/* Forms */
+
+.ng-invalid.ng-dirty {
+    border-color: red;
+    outline-color: #ff0000;
+}
+
+.ng-valid.ng-dirty {
+    border-color: green;
+    outline-color: green;
+}
+
+.ADMdtp-box:after {
+    z-index: 10001;
+}
+
+.theme-dropdown .dropdown-menu {
+    position: static;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.theme-showcase>p>.btn {
+    margin: 5px 0;
+}
+
+.ltr-force [class^="col-"] {
+    float: left !important;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    /* reset the text-align */
+    text-align: left;
+    /* inline-block space fix */
+    margin-right: -4px;
+    text-align: center;
+    /* background-color: #ccc;
+    border: 1px solid #ddd; */
+}
+
+.col-s1>[class^="col-"] {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.container-s1>[class*='container'] {
+    padding-right: 1px;
+    padding-left: 1px;
+    /* padding-top: 8px; */
+}
+
+.row-s1 [class^="row"] {
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+.panel-heading-temp {
+    color: #fff !important;
+    background-color: #ff7373 !important;
+    /* border-color: #ff0000 !important; */
+}
+
+.panel-heading-hum {
+    color: #fff !important;
+    background-color: #5fbfff !important;
+    /* border-color: #ff0000 !important; */
+}
+.panel-heading-lux {
+    color: #fff !important;
+    background-color: #f58400 !important;
+    /* border-color: #ff0000 !important; */
+}
+
+/* =========================================== */
+
+.color-temp {
+    background-color: #ff9e9e;
+    border-color: #ff9e9e;
+}
+
+.color-temp:hover, .color-temp:focus, .color-temp:active, .color-temp.active {
+    background-color: #ff8585;
+    border-color: #ff6b6b;
+}
+
+.color-temp.disabled:hover, .color-temp.disabled:focus, .color-temp.disabled:active, .color-temp.disabled.active, .color-temp[disabled]:hover, .color-temp[disabled]:focus, .color-temp[disabled]:active, .color-temp[disabled].active, fieldset[disabled] .color-temp:hover, fieldset[disabled] .color-temp:focus, fieldset[disabled] .color-temp:active, fieldset[disabled] .color-temp.active {
+    background-color: #ff9e9e;
+    border-color: #ff9e9e;
+}
+
+/* =========================================== */
+
+.color-hum {
+    background-color: #acdeff;
+    border-color: #acdeff;
+}
+
+.color-hum:hover, .color-hum:focus, .color-hum:active, .color-hum.active {
+    background-color: #93d4ff;
+    border-color: #79caff;
+}
+
+.color-hum.disabled:hover, .color-hum.disabled:focus, .color-hum.disabled:active, .color-hum.disabled.active, .color-hum[disabled]:hover, .color-hum[disabled]:focus, .color-hum[disabled]:active, .color-hum[disabled].active, fieldset[disabled] .color-hum:hover, fieldset[disabled] .color-hum:focus, fieldset[disabled] .color-hum:active, fieldset[disabled] .color-hum.active {
+    background-color: #acdeff;
+    border-color: #acdeff;
+}
+
+/* =========================================== */
+
+.color-ph {
+    background-color: #fc55fc;
+    border-color: #fc55f4;
+}
+
+.color-ph:hover, .color-ph:focus, .color-ph:active, .color-ph.active {
+    background-color: #f63cfc;
+    border-color: #fb23cc;
+}
+
+.color-ph.disabled:hover, .color-ph.disabled:focus, .color-ph.disabled:active, .color-ph.disabled.active, .color-ph[disabled]:hover, .color-ph[disabled]:focus, .color-ph[disabled]:active, .color-ph[disabled].active, fieldset[disabled] .color-ph:hover, fieldset[disabled] .color-ph:focus, fieldset[disabled] .color-ph:active, fieldset[disabled] .color-ph.active {
+    background-color: #fc55ee;
+    border-color: #fc55e6;
+}
+
+/* =========================================== */
+
+.color-ec {
+    background-color: #bbff4c;
+    border-color: #bbff4c;
+}
+
+.color-ec:hover, .color-ec:focus, .color-ec:active, .color-ec.active {
+    background-color: #9dfd02;
+    border-color: #a8ff19;
+}
+
+.color-ec.disabled:hover, .color-ec.disabled:focus, .color-ec.disabled:active, .color-ec.disabled.active, .color-ec[disabled]:hover, .color-ec[disabled]:focus, .color-ec[disabled]:active, .color-ec[disabled].active, fieldset[disabled] .color-ec:hover, fieldset[disabled] .color-ec:focus, fieldset[disabled] .color-ec:active, fieldset[disabled] .color-ec.active {
+    background-color: #bbff4c;
+    border-color: #bbff4c;
+}
+
+/* ----------------------------------- */
+.color-lux {
+    background-color: #f58400;
+    border-color: #f58400;
+  }
+  .color-lux:hover,
+  .color-lux:focus,
+  .color-lux:active,
+  .color-lux.active {
+    background-color: #dc7600;
+    border-color: #c26900;
+  }
+  .color-lux.disabled:hover,
+  .color-lux.disabled:focus,
+  .color-lux.disabled:active,
+  .color-lux.disabled.active,
+  .color-lux[disabled]:hover,
+  .color-lux[disabled]:focus,
+  .color-lux[disabled]:active,
+  .color-lux[disabled].active,
+  fieldset[disabled] .color-lux:hover,
+  fieldset[disabled] .color-lux:focus,
+  fieldset[disabled] .color-lux:active,
+  fieldset[disabled] .color-lux.active {
+    background-color: #f58400;
+    border-color: #f58400;
+  }
+  
+/* --------------------------------- */
+.color-co2 {
+    background-color: #85a2b0;
+    border-color: #85a2b0;
+  }
+  .color-co2:hover,
+  .color-co2:focus,
+  .color-co2:active,
+  .color-co2.active {
+    background-color: #7696a6;
+    border-color: #668a9c;
+  }
+  .color-co2.disabled:hover,
+  .color-co2.disabled:focus,
+  .color-co2.disabled:active,
+  .color-co2.disabled.active,
+  .color-co2[disabled]:hover,
+  .color-co2[disabled]:focus,
+  .color-co2[disabled]:active,
+  .color-co2[disabled].active,
+  fieldset[disabled] .color-co2:hover,
+  fieldset[disabled] .color-co2:focus,
+  fieldset[disabled] .color-co2:active,
+  fieldset[disabled] .color-co2.active {
+    background-color: #85a2b0;
+    border-color: #85a2b0;
+  }
+  
+/* -----------------------------   */
+
+.ontop1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+/* space beyene element ha dar size mobile */
+@media (max-width: 768px) { 
+
+    [class*="col-"] {
+        margin-bottom: 9px;
+    }
+  
+  }

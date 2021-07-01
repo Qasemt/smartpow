@@ -1,0 +1,110 @@
+<form novalidate name="myform" class="form-horizontal" ng-submit="myform.$valid && xsubmit()">
+    <div class="modal-header" ng-init="init()">
+        <h3 class="modal-title">{{titleform|translate}} </h3>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group" ng-class="{ 'has-error': myform.txtDeviceCode.$invalid || _hassErrorBiggerBiggerOrLess}">
+            <label class="control-label col-sm-3"> {{ 'Device_Code' | translate}} </label>
+
+            <div class="col-sm-5 col-xs-12">
+
+                <input class="form-control" type="number" ng-required="true" name="txtDeviceCode" data-ng-model="LocalRecordSelected.code"
+                />
+            </div>
+            <div class="col-sm-6 col-sm-offset-3">
+                <label class="validation-error" ng-show="myform.txtDeviceCode.$invalid">{{"Error_2006_Required"|translate}}
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': myform.txtDeviceName.$invalid || _hassErrorBiggerBiggerOrLess}">
+            <label class="control-label col-sm-3"> {{ 'Device_Name' | translate}} </label>
+
+            <div class="col-sm-5 col-xs-12">
+
+                <input class="form-control" type="text" ng-required="true" name="txtDeviceName" data-ng-model="LocalRecordSelected.title"
+                />
+            </div>
+            <div class="col-sm-6 col-sm-offset-3">
+                <label class="validation-error" ng-show="myform.txtDeviceName.$invalid">{{"Error_2006_Required"|translate}}
+                </label>
+            </div>
+        </div>
+        <!--*********************************-->
+        <div class="form-group" ng-class="{ 'has-error': myform.devicecode.$invalid || _hassErrorBiggerBiggerOrLess}">
+            <label class="control-label col-sm-3"> {{ 'Schedule_mode_name' | translate}} </label>
+
+            <div class="col-sm-5 col-xs-12">
+                <div class="selectpicker input-group-md ">
+
+                    <select class="form-control text-center selectFix" name="SchMode" data-ng-model="SchModeSelected" ng-change="onchangeSchModeItem(SchModeSelected)"
+                        ng-options="item.name for item in _getSchModeNames">
+                    </select>
+
+                </div>
+
+            </div>
+            <!--<h3>You have selected : {{dayselected}}</h3>-->
+
+        </div>
+        <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Green house  $$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
+        <div class="form-group" ng-class="{ 'has-error': myform.greenHouseCode.$invalid }">
+
+            <label class="control-label col-sm-3">{{ 'Green_House' |translate}}</label>
+
+            <div class=" col-sm-5 col-xs-12">
+                <select name="greenHouseCode" class="form-control selectFix" data-ng-model="green_house_Selected" ng-change="onchangeGreenHouseItem(green_house_Selected)"
+                    ng-options="item.title for item in _green_house_list" required>
+                </select>
+                <div ng-messages="myform.greenHouseCode.$error">
+                    <div ng-message="required">{{"Error_2006_Required"|translate}}</div>
+                </div>
+            </div>
+
+        </div>
+        <!--*********************************-->
+        <div class="form-group" ng-class="{ 'has-error': myform.devicecode.$invalid || _hassErrorBiggerBiggerOrLess}">
+            <label class="control-label col-sm-3"> {{ 'Device_Enable' | translate}} </label>
+
+            <div class="col-sm-3">
+
+                <input type="checkbox" id="chkDeviceEnable" name="chkDeviceEnable" data-off-color="danger" data-on-color="success" data-label-text="Device"
+                    data-off-text="Disable" data-on-text="Enable" data-text-label="Device" />
+            </div>
+        </div>
+        <!--*********************************-->
+
+        <div ng-show="values.isManuallyShow">
+            <div class="well well-lg">
+                <div class="lead caption">
+                    <p class="p-color">
+                        <small> {{ 'Manually_on_off_with_Duration_Time_minute' | translate}} </small>
+                    </p>
+                </div>
+                <!-- ng-change="onchangeDuration(pRecordSelected.durationtimesecs)" -->
+                <input type="number" data-ng-model="values.manually_duaration_minute" id="txtDuration" name="txtDuration" placeholder="Durarion Of Minutes"
+                />
+                <input type="checkbox" id="chkDeviceOnOff" name="chkDeviceOnOff" data-off-color="danger" data-on-color="success" data-label-text="Device"
+                    data-off-text="Off" data-on-text="On" data-text-label="Device" />
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="form-group">
+
+                <button class="btn btn-info  " ng-click="restTime()">{{ 'Reset_Times' | translate}}</button>
+                <btn-save btntype="submit" is-disabled="myform.$invalid"></btn-save>
+                
+
+
+                <btn-cancel ng-click="cancel()"></btn-cancel>
+
+                <!--<div class="visible-xs">&nbsp;</div>-->
+
+            </div>
+        </div>
+
+    </div>
+</form>

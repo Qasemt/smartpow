@@ -1,0 +1,65 @@
+<form name="myform"  class="form-horizontal" ng-submit="myform.$valid &&  xsubmit()" novalidate>
+    <div class="modal-header" ng-init="init()">
+        <h3 class="modal-title">{{"Insert_Title"|translate}} </h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" ng-class="{ 'has-error':myform.$submitted && myform.$invalid }">
+            <div class="col-sm-2">
+                <label class="control-label"> {{ 'Device_Code' | translate}} </label>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+
+                <input required class="form-control" type="number" ng-required="true" min="1" name="txtDeviceCode" data-ng-model="LocalRecordSelected.code"
+                />
+            </div>
+            <div class="col-sm-12 col-sm-offset-2">
+                <div ng-messages="myform.txtDeviceCode.$error" ng-show="myform.$submitted || myform.txtDeviceCode.$dirty && myform.txtDeviceCode.$invalid">
+                    <div ng-message="required">{{"Error_2006_Required"|translate}}</div>
+                    <div ng-message="min">{{"Error_2012_Min_Value"|translate:"{num:'0'}"}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': myform.$submitted && myform.$invalid }">
+            <div class="col-sm-2">
+                <label class=" control-label "> {{ 'Device_Name' | translate}} </label>
+            </div>
+            <div class="col-sm-6">
+
+                <input class="form-control" type="text" ng-required="true" name="txtDeviceName" data-ng-model="LocalRecordSelected.title"
+                />
+            </div>
+            <div class="col-sm-12 col-sm-offset-2">
+                <div ng-messages="myform.txtDeviceName.$error" ng-show="myform.$submitted || myform.txtDeviceName.$dirty &&  myform.txtDeviceName.$invalid">
+                    <div ng-message="required">{{"Error_2006_Required"|translate}}</div>
+                </div>
+
+            </div>
+        </div>
+
+       <!-- <server-message text="{{values._error_service_message|translate}}"></server-message>  -->
+        <div class="form-group">
+
+            <div class="col-sm-12 col-xs-12 col-sm-offset-2">
+                <label class="validation-error" style="color:red" ng-show="values._has_error_service">{{values._error_service_message|translate}}</label>
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <div class="form-group">
+               
+
+                <btn-save btntype="submit" ></btn-save>
+
+                <btn-cancel ng-click="cancel()"></btn-cancel>
+                <!--<div class="visible-xs">&nbsp;</div>-->
+            </div>
+        </div>
+     
+
+    </div>
+</form>

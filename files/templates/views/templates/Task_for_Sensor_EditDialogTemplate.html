@@ -1,0 +1,99 @@
+<form novalidate name="myform" class="form-horizontal">
+    <div class="modal-header" ng-init="init()">
+        <h3 class="modal-title"> {{titleform|translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Device Code $$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
+        <div class="form-group"
+             ng-class="{ 'has-error': myform.devicecode.$invalid || _hassErrorBiggerBiggerOrLess}">
+
+            <label class="control-label col-xs-12 col-sm-2" text>{{ 'Device_Name' |translate}} </label>
+
+
+            <div class="col-sm-6 col-xs-12">
+                <select name="devicecode" class="form-control selectFix" data-ng-model="selectedDeviceCode"
+                        ng-change="onchangeDeviceItem(selectedDeviceCode)"
+                        ng-options="item.title for item in _DeviceItems">
+                </select>
+
+            </div>
+
+        </div>
+
+        <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Sensor Type $$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
+        <div class="form-group"
+             ng-class="{ 'has-error': myform.sensortype.$invalid || _hassErrorBiggerBiggerOrLess}">
+
+            <label class="control-label col-xs-12 col-sm-2">{{ 'Sensor_Type' |translate}}</label>
+
+            <div class=" col-sm-6 col-xs-12">
+                <select name="sensortype" class="form-control selectFix" data-ng-model="selectedSensitiveSensorCode"
+                        ng-change="onSensitiveSensorChanged(selectedSensitiveSensorCode)"
+                        ng-options="item.name for item in _getsensitiveSensor">
+                </select>
+
+            </div>
+
+        </div>
+
+         <!--++++++++++++++++++++++++ Sensor code 1 +++++++-->
+         <div class="form-group"
+         ng-class="{ 'has-error': myform.sensorcode.$invalid || _hassErrorBiggerBiggerOrLess}">
+
+        <label class="control-label col-xs-12 col-sm-2">{{ 'sensor_code' |translate}}</label>
+
+        <div class=" col-sm-6 col-xs-12" >
+            <select name="sensorcode" class="form-control selectFix" data-ng-model="selectedSensorItem"
+                    ng-change="onchangeSensorItem(selectedSensorItem)"
+                    ng-options="('&nbsp;&nbsp;کد:&nbsp; ' + item.sensorcode +' &nbsp;&nbsp; '+ item.title)  for item in _SensorItems">
+            </select>
+
+        </div>
+
+    </div>
+        <!--++++++++++++++++++++++++ Value 1 +++++++-->
+        <div class="form-group"
+             ng-class="{ 'has-error': myform.value1.$invalid || _hassErrorBiggerBiggerOrLess }">
+            <label class="control-label col-xs-12 col-sm-2"> Value 1 </label>
+            <div class="col-sm-6  col-xs-12">
+                <input class="form-control" dir="ltr"   name="value1" type="number" ng-change="changed"
+                       ng-model="tempAndhumiSelected.value1"/></div>
+        </div>
+
+
+        <!--++++++++++++++++++++++++ Value 2 +++++++-->
+        <div class="form-group"
+             ng-class="{ 'has-error': myform.value2.$invalid || _hassErrorBiggerBiggerOrLess }">
+            <label class="control-label  col-xs-12 col-sm-2"> Value 2 </label>
+
+            <div class="col-sm-6  col-xs-12">
+                <input class="form-control"  dir="ltr"  name="value2" type="number" ng-change="changed"
+                       ng-model="tempAndhumiSelected.value2"/></div>
+        </div>
+
+
+        <!--+++++++++++++++++++-->
+
+        <div class="form-group" ng-class="{ 'has-error': myform.smsalert.$invalid }">
+
+            <div class="col-sm-7 col-sm-offset-2 col-xs-12">
+                <!-- <div class="checkbox">-->
+                <label class="checkbox-inline">
+                    <input name="smsalert" class="-control" type="checkbox"
+                           ng-model="tempAndhumiSelected.smsalert"/>
+                    {{"SMS_Alert"|translate}}
+                </label>
+                <!--</div>-->
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+        <btn-save ng-click="yes()" is-disabled="myform.$invalid || _hassErrorBiggerBiggerOrLess"></btn-save>
+        <btn-cancel ng-click="cancel()"></btn-cancel>
+    </div>
+    </div>
+
+</form>

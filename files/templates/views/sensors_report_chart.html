@@ -1,0 +1,236 @@
+<div ng-controller="ctrlSensors_Report_Chart" ng-init="init()">
+
+
+    <div class="row" id="header_row">
+            <div page-Header header-name="sensors_report_chart"  icon=""></div>
+    </div>
+
+    <div class="container" id="main_container">
+
+
+        <div class="row" id="toolbar_row">
+            <div class="  well btn-group btn-group-justified" id="Unit_Toolbar1">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-4 col-md-2">
+
+                        <button type="submit" ng-click="btnTodayOnClick()" class="btn btn-info btn-block "> {{ 'Today' |
+                            translate }}
+                        </button>
+
+                    </div>
+                    <div class="col-sm-3 col-xl-1 col-xs-4 col-md-2">
+                        <button type="submit" class="btn btn-default btn-block"
+                                ng-click="btnShowDialogDateTimeBetween()"> {{ 'Duration_Dates' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-sm-3 col-xl-1 col-xs-4 col-md-2">
+                        <button type="submit" class="btn btn-default btn-block " ng-click="btnLastLogsOnClick()"> {{
+                            'Last_Logs' | translate }}
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" id="unit_all_gauges_with_accordion_row">
+
+            <div class="uib-accordion">
+                <uib-accordion close-others="false" >
+                    <div uib-accordion-group class="panel-default" is-open="PageValues.accordion_isFirstOpen">
+
+                        <uib-accordion-heading>
+
+                            <span class="pull-left glyphicon glyphicon glyphicon-list-alt"></span>
+                            <span> &nbsp; &nbsp; {{'Last_Status'|translate}} &nbsp; &nbsp; </span>
+                            <span class="pull-right glyphicon"
+                                  ng-class="{'glyphicon-chevron-down': PageValues.accordion_isFirstOpen, 'glyphicon-chevron-right': !PageValues.accordion_isFirstOpen}"></span>
+
+                        </uib-accordion-heading>
+
+                        <!--<div class="row " id="Unit_all_gauges ">-->
+                        <div class="col-xl-6 col-sm-4" id="panel_temp_hum">
+
+                            <div class="panel panel-success">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Temp-Hum</div>
+
+
+                                <div class="panel-body ">
+
+                                        <div class="col-xs-6 col-sm-6 " style="direction:ltr;">
+
+                                            <gauge-global title="Temp" symbol-label="°C" has-show-label='true'
+                                                          gauge-value="PageValues.LastTempValueAsSensorCode"
+                                                          min-value="-30" max-value="60"
+                                                          data-ng-click="btnGetLastLogBySensorCodeorSerial()"></gauge-global>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6  " style="direction:ltr;">
+                                            <!-- <ng-gauge size="125 " type="full " thick="3 "
+                                                       value="PageValues.LastHumValueAsSensorCode" cap="round " label="hum"
+                                                       foreground-color="#203fdb "
+                                                       background-color="#d8d2d8" append="% "></ng-gauge>-->
+                                            <gauge-global title="HUM" symbol-label="%"
+                                                          gauge-value="PageValues.LastHumValueAsSensorCode"
+                                                          min-value="0" max-value="100"
+                                                          data-ng-click="btnGetLastLogBySensorCodeorSerial()"></gauge-global>
+                                        </div>
+
+                                </div>
+                            </div>
+                            <div monitor-Temp style="margin: 10px;"></div>
+                            <div monitor-Hum style="margin: 10px;"></div>
+                        </div>
+                        <div class="col-xl-6   col-sm-4" id="panel_EC_HUm">
+
+                            <div class="panel panel-success">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">EC-PH</div>
+
+                                <!-- Table -->
+                                <div class="panel-body">
+
+
+                                    <div class="col-xs-6 col-sm-6 text-center  "
+                                         style="direction:ltr;">
+
+                                        <gauge-global title="EC" symbol-label="PPM" gauge-value="0" min-value="0"
+                                                      max-value="100"></gauge-global>
+
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 "
+                                         style="direction:ltr;">
+
+                                        <gauge-global title="PH" symbol-label="PPM" gauge-value="0" min-value="0"
+                                                      max-value="100"></gauge-global>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <!--</div>-->
+
+
+                        <div class="col-xl-6 col-sm-4" id="panel_Information">
+
+
+                            <div class="panel panel-success">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">
+                                    <!--{{'Information'|translate}}-->
+                                    &nbsp;
+                                </div>
+
+                                <!-- Table -->
+                                <div class="panel-body">
+                                    <form class="bs-example bs-example-form" role="form">
+                                        <div class="form-group">
+                                            <div class=" input-group input-group-sm ">
+
+                                                <span class="input-group-addon " id="basic-addon1 ">{{'LimitOfLoadRecord'|translate}}</span>
+                                                <input type="number" input-pattern="[^0-9]+ " class="form-control "
+                                                       data-ng-model="PageValues.LimitValue " id="txtLimit "
+                                                       name="txtLimit " placeholder="Limit Number "/>
+                                                <span class="input-group-addon ">{{ 'numberOfRecords' | translate:PageValues}}</span>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <div class=" input-group input-group-sm ">
+
+                                                <span class="input-group-addon " id="basic-addon2">{{'Sensor_Type'|translate}}</span>
+                                                <input type="text" id="txtCurrentBaseSensorTypeName"
+                                                       name="txtCurrentBaseSensorTypeName" class="form-control "
+                                                       ng-model="PageValues.CurrentBaseSensorTypeName" readonly
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <div class="col-sm-10 col-xs-10">
+                                                <div class=" input-group input-group-sm ">
+
+                                                    <span class="input-group-addon " id="basic-addon_4442">{{ 'Current_Sensor_Code' | translate }}</span>
+
+                                                    <input type="number" readonly id="txtCurrentSesorCode"
+                                                           name="txtCurrentSesorCode" class="form-control "
+                                                           ng-model="PageValues.CurrentSesorCode"
+                                                    />
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-1 col-xs-2">
+                                                <button ng-click="btnShowDialogSensorInfosListOnClick()" type="button"
+                                                        class="btn btn-default btn-sm"><span
+                                                        class="glyphicon glyphicon-list-alt"></span></button>
+                                            </div>
+
+                                            </button>
+
+
+                                        </div>
+
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+            </div>
+
+            </div>
+            <!--end Unit_all_gauges-->
+            </uib-accordion>
+        </div>
+
+        <div class=" row well" id="Unit_ChartView_row">
+
+
+            <div class="form-group">
+                <!--فعلا چک باکس سویچ بین سنسور ها کاربردی نیست-->
+             <!--   <div class="input-group">
+
+
+                    <input data-handle-width="100" type="checkbox" id="chkSensorSelected" name="chkSensorSelected"
+                           data-off-color="danger" data-on-color="success"
+                           data-label-text="Switch to SenSor" data-off-text="PH-EC" data-on-text="TEMP-HUM"
+                           data-text-label="Device"
+                    />
+
+
+                </div>-->
+                <!--<div class="row well " id="rowChartLit ">-->
+                <div class="row">
+
+                    <highchart id="chart1" config="chartConfig" style="direction: ltr;font-family: 'yekan'"></highchart>
+                    <!--  <highchart id="chartTemp" config="TempGauge" style="direction: ltr;font-family: 'yekan';width: 200px ;height: 200px"></highchart>-->
+
+
+                    <!--   <canvas id="line "
+                               style="padding-left: 20px;padding-right: 20px;margin-top: 20px;margin-bottom: 100px;"
+                               class="chart chart-line "
+                               chart-data="data " chart-labels="labels " chart-series="series
+                                           " chart-options="options " chart-colours="colours " chart-dataset-override="datasetOverride
+                                           " chart-click="onClick "></canvas>-->
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

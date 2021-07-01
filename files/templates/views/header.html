@@ -1,0 +1,58 @@
+
+    <div  class="navbar navbar-default navbar-fixed-top pull-right"  role = "navigation" >
+        <div class = "navbar-header ">
+            <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+		
+      <a class = "active navbar-brand"  href = "#/">
+
+     <logo-image style-bind="height: 30px; display: inline-block; margin-top: -10px"></logo-image>
+          Smart Pow</a>
+   </div>
+   <div class = "collapse navbar-collapse " id = "navbar-collapse1">
+        <div class="container-fluid ">
+              
+            <ul class="nav navbar-nav " >
+               
+                <!--<a href="/" class="navbar-brand"><i class="ion-images"></i> Menu</a>-->
+                <!--<li><a data-name="home" class="navbar-brand" ng-href="#/">Home</a></li>-->
+                <li><a data-name="/task_daily_time_for_device" class="navbar-brand"  ng-href="#/task_daily_time_for_device">{{ 'task_daily_time_for_device_Title_Nav' | translate }}</a></li>
+               <!-- <li><a data-name="weeklytime" class="navbar-brand" ng-href="#/weeklytime">Weekly Time</a></li>
+                <li><a data-name="customtime" class="navbar-brand" ng-href="#/customtime">Custom Time</a></li>-->
+                <li><a data-name="task_for_sensors" class="navbar-brand" ng-href="#/task_for_sensors">{{ 'task_for_sensors' | translate }}</a></li>
+                
+                <!-- <li><a data-name="sensors_report_chart" class="navbar-brand" ng-href="#/sensors_report_chart">{{ 'sensors_report_chart' | translate }}</a></li> -->
+             
+                <li><a data-name="settings" class="navbar-brand" ng-href="#/settings"> {{ 'Settings' | translate }}</a></li>
+              
+                <li class="dropdown" uib-dropdown>
+                    <a class="navbar-brand" data-toggle="dropdown" > {{ 'Sensors' | translate }}
+                    <span class="caret"></span></a>
+                    
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                      <li><a data-name="sensors_monitoring" ng-href="#/sensors_monitoring"> {{ 'sensors_monitoring' | translate }}</a></li>
+                   
+                    </ul>
+                  </li>
+
+                <li class="dropdown" uib-dropdown>
+                        <a class="navbar-brand" data-toggle="dropdown" > {{ 'Base_Info' | translate }}
+                        <span class="caret"></span></a>
+                        
+                        <ul class="dropdown-menu" uib-dropdown-menu>
+                          <li><a data-name="sensors" ng-href="#/sensors"> {{ 'Sensors' | translate }}</a></li>
+                          <li><a data-name="greenhouse" ng-href="#/greenhouses"> {{ 'Green_House' | translate }}</a></li>
+                        </ul>
+                      </li>
+       
+                <li><a data-name="logout" class="navbar-brand" ng-href="home/logout"> {{ 'Logout' | translate }}</a></li>
+                <!--<li><a ng-click="logout()" href="">Logout</a></li>-->
+             
+            </ul>
+
+        </div>
+    </div>
+    </div>
